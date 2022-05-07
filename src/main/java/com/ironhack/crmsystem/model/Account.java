@@ -1,27 +1,48 @@
 package com.ironhack.crmsystem.model;
 
 import com.ironhack.crmsystem.enums.Industry;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+
+@Entity
+@Table(name="account")
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Enumerated(EnumType.STRING)
     private Industry industry;
     private int numberOfEmployees;
     private String city;
     private String country;
     private String name; //take it from lead object
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private List<Contact> contactList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private List<Opportunity> opportunityList;
 
-    public Account(Industry industry, int numberOfEmployees, String city, String country, String name) {
+    public Account() {
+    }
+
+    public Account(Industry industry, int numberOfEmployees, String city, String country, String name, List<Contact> contactList, List<Opportunity> opportunityList) {
         this.industry = industry;
         this.numberOfEmployees = numberOfEmployees;
         this.city = city;
         this.country = country;
         this.name = name;
-        this.contactList = new ArrayList<>();
-        this.opportunityList = new ArrayList<>();
+        this.contactList = contactList;
+        this.opportunityList = opportunityList;
     }
 
     public List<Contact> getContactList() {
