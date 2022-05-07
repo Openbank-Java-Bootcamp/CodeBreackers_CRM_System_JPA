@@ -7,28 +7,32 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "opportunity")
 public class Opportunity {
-    private Product product;
-    private int quantity;
-    @OneToOne
-    @JoinColumn(name = "contact_id", referencedColumnName = "id")
-    private Contact decisionMaker;
-    @Enumerated
-    private Status status;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    //public static int idCount = 1;
+
+    @Enumerated(EnumType.STRING)
+    private Product product;
+    private int quantity;
+
+    @OneToOne
+    @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    private Contact decisionMaker;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 
     @ManyToOne
     @JoinColumn(name="sales_rep_id", nullable=false)
-    private SalesRepo salesRepo;
+    private SalesRep salesRep;
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status) {
+    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
         this.product = product;
         this.quantity = quantity;
         this.decisionMaker = decisionMaker;
         this.status = status;
-        //this.id = idCount++;
+        this.salesRep = salesRep;
     }
 
     public Opportunity() {
@@ -70,4 +74,11 @@ public class Opportunity {
         this.status = status;
     }
 
+    public SalesRep getSalesRep() {
+        return salesRep;
+    }
+
+    public void setSalesRep(SalesRep salesRep) {
+        this.salesRep = salesRep;
+    }
 }

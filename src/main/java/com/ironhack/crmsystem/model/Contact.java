@@ -6,24 +6,26 @@ import java.util.Objects;
 @Entity
 @Table(name = "contact")
 public class Contact {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String name;
     private String phoneNumber;
     private String emailAddress;
     private String companyName;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
 
+
+    //este es necesario? o puede no estar y que sea unidireccional....??
     @OneToOne(mappedBy = "contact")
     private Opportunity opportunity;
-    //public static int idCount =1;
+
 
     public Contact(String name, String phoneNumber, String emailAddress, String companyName) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.companyName = companyName;
-        //this.id = idCount++;
     }
 
     public int getId() {
