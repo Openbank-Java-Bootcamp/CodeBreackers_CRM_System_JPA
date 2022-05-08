@@ -5,25 +5,23 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "lead")
+@Table(name = "leads")
 public class Lead {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String phoneNumber;
     private String emailAddress;
     private String companyName;
 
-
     @ManyToOne
-    @JoinColumn(name="sales_rep_id", nullable=false)
+    @JoinColumn(name="sales_rep_id", referencedColumnName = "id")
     private SalesRep salesRep;
 
     public Lead() {
     }
-
 
     public Lead(String name, String phoneNumber, String emailAddress, String companyName, SalesRep salesRep) {
         this.name = name;
@@ -33,7 +31,10 @@ public class Lead {
         this.salesRep = salesRep;
     }
 
-    public int getId() {
+    public Lead(String nameLead, String phoneNumberLead, String emailLead, String companyNameLead) {
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -79,14 +80,7 @@ public class Lead {
 
     @Override
     public String toString() {
-        return "Lead{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", salesRep=" + salesRep +
-                '}';
+        return id + ". "+ name;
     }
 
     @Override

@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 @Entity
-@Table(name = "contact")
+@Table(name = "contacts")
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String phoneNumber;
@@ -17,7 +17,8 @@ public class Contact {
 
 
     //este es necesario? o puede no estar y que sea unidireccional....??
-    @OneToOne(mappedBy = "contact")
+    @OneToOne
+    @JoinColumn(name = "opportunity_id", referencedColumnName = "id")
     private Opportunity opportunity;
 
 

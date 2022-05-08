@@ -24,7 +24,7 @@ import nl.altindag.console.ConsoleCaptor;
 
 
 class CRMTest {
-    private OldCRM crm;
+    /*private OldCRM crm;
     private Scanner s;
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -308,6 +308,6 @@ class CRMTest {
         StringReader sr = new StringReader("Matucos");
         Scanner scan = new Scanner(sr);
         assertEquals("Matucos", crm.companyNameLead(scan) );
-    }
+    }*/
 
 }

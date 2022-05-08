@@ -4,20 +4,21 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
+
 @Entity
-@Table(name = "sales_rep")
+@Table(name = "sales_reps")
 public class SalesRep {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sales_rep", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "salesRep", cascade = CascadeType.ALL)
     private Set<Lead> leads;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sales_rep", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "salesRep", cascade = CascadeType.ALL)
     private Set<Opportunity> opportunities;
 
     public SalesRep() {
@@ -57,4 +58,8 @@ public class SalesRep {
     public void setOpportunities(Set<Opportunity> opportunities) {
         this.opportunities = opportunities;
     }
+
+    //============= Additional Methods ======================
+
+
 }

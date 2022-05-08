@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
 
+/*
     private OldCRM crm;
 
     @BeforeEach
@@ -28,6 +29,7 @@ class MenuTest {
         Scanner scanner = new Scanner(new StringReader(""));
         assertThrows(Exception.class,() -> Menu.selectOption(scanner,crm));
     }
+*/
 
 
 }

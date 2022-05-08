@@ -5,26 +5,24 @@ import com.ironhack.crmsystem.enums.Status;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "opportunity")
+@Table(name = "opportunities")
 public class Opportunity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
     private Product product;
     private int quantity;
 
-    @OneToOne
-    @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "opportunity")
     private Contact decisionMaker;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
     @ManyToOne
-    @JoinColumn(name="sales_rep_id", nullable=false)
+    @JoinColumn(name="sales_rep_id", referencedColumnName = "id")
     private SalesRep salesRep;
 
     public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
