@@ -1,4 +1,4 @@
-package com.ironhack.crmsystem.model;
+package com.ironhack.crmsystem.components;
 
 public class Colors {
     // Reset

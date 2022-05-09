@@ -1,6 +1,6 @@
-package com.ironhack.crmsystem.service;
+package com.ironhack.crmsystem;
 
-import com.ironhack.crmsystem.controller.Menu;
+import com.ironhack.crmsystem.components.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +21,7 @@ public class CrmSystemApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
-		//Menu.welcome();
-		//menu.displayPrincipalMenu(scanner);
+		Menu.welcome();
+		menu.displayPrincipalMenu(scanner);
 	}
 }

@@ -1,11 +1,27 @@
-package com.ironhack.crmsystem.controller;
+package com.ironhack.crmsystem.components;
 
+import com.ironhack.crmsystem.model.Account;
+import com.ironhack.crmsystem.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Scanner;
 
 @Component
 public class Menu {
 
-    /*
+    @Autowired
+    private SalesRepService salesRepService;
+
+    @Autowired
+    private LeadService leadService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private OpportunityService opportunityService;
+
     public static void welcome() {
         System.out.println();
         System.out.println(Colors.YELLOW_BOLD_BRIGHT + "||       ||ººº\\\\   ||        " + Colors.GREEN_BOLD_BRIGHT + "ººººººººº  ||ºººº\\\\  ||      ||   //ººº\\\\  ||   //  ºº||ºº  ||\\\\    ||   //ººº\\\\");
@@ -35,7 +51,8 @@ public class Menu {
         scanner.nextLine();
     }
 
-   public void displayPrincipalMenu(Scanner scanner) {
+
+    public void displayPrincipalMenu(Scanner scanner) {
         System.out.print(Colors.GREEN_BOLD_BRIGHT);
         System.out.println("You have the following options:");
         System.out.println("Please, type the command indicated [in brackets] for the action you want to perform");
@@ -60,14 +77,13 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "new salesrep" -> crm.createSalesRep(scanner);
-                case "show salesreps" -> crm.showSalesRep(scanner);
-                case "new lead" -> crm.createLead(scanner);
-                case "convert" -> crm.convertLead(scanner);
-                case "change status" -> crm.changeOppStatus(scanner);
+                case "new salesrep" -> salesRepService.createSalesRep(scanner);
+                case "show salesreps" -> salesRepService.showSalesRep(scanner);
+                case "new lead" -> leadService.createLead(scanner);
+                case "convert" -> leadService.convertLead(scanner);
+                case "change status" -> opportunityService.changeOppStatus(scanner);
                 case "lead reports" -> displayOptionLeadsMenu(scanner);
                 case "opportunity reports" -> displayOptionOpportunityMenu(scanner);
-
                 case "quantity" -> selectOptionQuantityMenu(scanner);
                 case "account" -> selectOptionAccountMenu(scanner);
                 case "exit" -> {
@@ -78,11 +94,11 @@ public class Menu {
                 }
                 default -> {
                     System.out.println("Wrong command. Please, try again");
-                    //option = "";
                 }
             }
         }
     }
+
 
     public void displayOptionLeadsMenu(Scanner scanner) {
         System.out.print(Colors.GREEN_BOLD_BRIGHT);
@@ -98,13 +114,12 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "show leads" -> crm.showLeads();
-                case "lookup lead" -> crm.leadDetail(scanner);
-                case "Leads by salesrep" -> crm.countOfLeadsBySalesRep();
+                case "show leads" -> leadService.showLeads();
+                case "lookup lead" -> leadService.leadDetail(scanner);
+                case "Leads by salesrep" -> leadService.countOfLeadsBySalesRep();
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
-                    //option = "";
                 }
 
             }
@@ -133,20 +148,19 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "report opportunity by salesrep" -> crm.opportunitiesBySalesRep(scanner);
-                case "report by status" -> crm.opportunitiesByStatus(scanner);
-                case "report opportunity by the product" -> crm.opportunitiesByProduct(scanner);
-                case "report opportunity by the product and status" -> crm.opportunitiesByProductAndProduct(scanner);
-                case "report opportunity by country" -> crm.opportunitiesByCountry(scanner);
-                case "report opportunity by country and status" -> crm.opportunitiesByCountryAndStatus(scanner);
-                case "report opportunity by the city" -> crm.opportunitiesByCity(scanner);
-                case "report opportunity by city and status" -> crm.opportunitiesByCityAndStatus(scanner);
-                case "report opportunity by the industry" -> crm.opportunitiesByIndustry(scanner);
-                case "report opportunity by the industry and status" -> crm.opportunitiesByIndustryAndStatus(scanner);
+                case "report opportunity by salesrep" -> opportunityService.opportunitiesBySalesRep(scanner);
+                case "report by status" -> opportunityService.opportunitiesByStatus(scanner);
+                case "report opportunity by the product" -> opportunityService.opportunitiesByProduct(scanner);
+                case "report opportunity by the product and status" -> opportunityService.opportunitiesByProductAndProduct(scanner);
+                case "report opportunity by country" -> opportunityService.opportunitiesByCountry(scanner);
+                case "report opportunity by country and status" -> opportunityService.opportunitiesByCountryAndStatus(scanner);
+                case "report opportunity by the city" -> opportunityService.opportunitiesByCity(scanner);
+                case "report opportunity by city and status" -> opportunityService.opportunitiesByCityAndStatus(scanner);
+                case "report opportunity by the industry" -> opportunityService.opportunitiesByIndustry(scanner);
+                case "report opportunity by the industry and status" -> opportunityService.opportunitiesByIndustryAndStatus(scanner);
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
-                    //option = "";
                 }
 
             }
@@ -175,18 +189,17 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "max employeecount" -> crm.maxEmployeeCont();
-                case "min employeecount" -> crm.minEmployeeCont();
-                case "mean employeecount" -> crm.meanEmployeeCont();
-                case "median employeecount" -> crm.medianEmployeeCont();
-                case "max opportunity" -> crm.maxOpportunity();
-                case "min opportunity" -> crm.minOpportunity();
-                case "mean opportunity" -> crm.meanOpportunity();
-                case "median opportunity" -> crm.medianOpportunity();
+                case "max employeecount" -> accountService.maxEmployeeCont();
+                case "min employeecount" -> accountService.minEmployeeCont();
+                case "mean employeecount" -> accountService.meanEmployeeCont();
+                case "median employeecount" -> accountService.medianEmployeeCont();
+                case "max opportunity" -> accountService.maxOpportunity();
+                case "min opportunity" -> accountService.minOpportunity();
+                case "mean opportunity" -> accountService.meanOpportunity();
+                case "median opportunity" -> accountService.medianOpportunity();
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
-                    //option = "";
                 }
 
             }
@@ -209,19 +222,18 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "max quantity" -> crm.maxQuantity();
-                case "min quantity" -> crm.minQuantity();
-                case "mean quantity" -> crm.meanQuantity();
-                case "median quantity" -> crm.medianQuantity();
+                case "max quantity" -> opportunityService.maxQuantity();
+                case "min quantity" -> opportunityService.minQuantity();
+                case "mean quantity" -> opportunityService.meanQuantity();
+                case "median quantity" -> opportunityService.medianQuantity();
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
-                    //option = "";
                 }
 
             }
 
         }
     }
-*/
+
 }

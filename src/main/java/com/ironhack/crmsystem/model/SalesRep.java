@@ -24,11 +24,15 @@ public class SalesRep {
     public SalesRep() {
     }
 
-    public SalesRep(String name, Set<Lead> leads, Set<Opportunity> opportunities) {
+    public SalesRep(String name) {
+        this.name = name;
+    }
+
+    /*public SalesRep(String name, Set<Lead> leads, Set<Opportunity> opportunities) {
         this.name = name;
         this.leads = leads;
         this.opportunities = opportunities;
-    }
+    }*/
 
     public Integer getId() {
         return this.id;

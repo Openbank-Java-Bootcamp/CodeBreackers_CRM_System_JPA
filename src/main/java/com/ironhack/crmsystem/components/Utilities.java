@@ -1,4 +1,4 @@
-package com.ironhack.crmsystem.model;
+package com.ironhack.crmsystem.components;
 import com.ironhack.crmsystem.enums.Industry;
 import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
@@ -10,7 +10,7 @@ public class Utilities {
 
     public static String nameLead(Scanner scanner) {
 
-        System.out.println("Please insert the name of the new lead");
+        System.out.println("Please insert the name");
         String name = scanner.nextLine();
         boolean isNumber = false;
         while (!isNumber) { //valida que no hayan numeros
