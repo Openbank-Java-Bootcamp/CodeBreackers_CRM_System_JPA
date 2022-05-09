@@ -2,6 +2,10 @@ package com.ironhack.crmsystem.components;
 import com.ironhack.crmsystem.enums.Industry;
 import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
+import com.ironhack.crmsystem.model.Lead;
+import com.ironhack.crmsystem.model.SalesRep;
+
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -61,6 +65,8 @@ public class Utilities {
         String companyName = scanner.nextLine(); //pueden haber letras y numeros*/
         return companyName;
     }
+
+
     public Industry industrySelection(Scanner scanner){
         Industry i;
         String industry = scanner.nextLine().toUpperCase();
@@ -173,6 +179,18 @@ public class Utilities {
             city = scanner.next();
         }
         return city;
+    }
+
+    public static void printSalesRep(List<SalesRep> list){
+        for (int i= 0; i < list.size(); i++){
+            System.out.println( list.get(i).getId()+ " " + list.get(i).getName());
+        }
+    }
+
+    public static void printLead(List<Lead> list){
+        for (int i= 0; i < list.size(); i++){
+            System.out.println(list.get(i).getId() + " " + list.get(i).getName());
+        }
     }
 
 
