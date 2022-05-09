@@ -77,7 +77,8 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "new salesrep" -> salesRepService.createSalesRep(scanner);
+                case "new salesrep" ->
+                        salesRepService.createSalesRep(scanner);
                 case "show salesreps" -> salesRepService.showSalesRep(scanner);
                 case "new lead" -> leadService.createLead(scanner);
                 case "convert" -> leadService.convertLead(scanner);
@@ -97,6 +98,7 @@ public class Menu {
                 }
             }
         }
+        displayPrincipalMenu(scanner);
     }
 
 
@@ -114,7 +116,7 @@ public class Menu {
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "show leads" -> leadService.showLeads();
+                case "show leads" -> leadService.showLeads(scanner);
                 case "lookup lead" -> leadService.leadDetail(scanner);
                 case "Leads by salesrep" -> leadService.countOfLeadsBySalesRep();
                 case "exit" -> displayPrincipalMenu(scanner);
@@ -124,6 +126,7 @@ public class Menu {
 
             }
         }
+        displayOptionLeadsMenu(scanner);
     }
 
     public void displayOptionOpportunityMenu(Scanner scanner) {

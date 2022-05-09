@@ -9,12 +9,13 @@ import com.ironhack.crmsystem.repository.SalesRepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Service
 public class SalesRepService {
-
-    private Menu menu;
+    Menu menu = new Menu();
+    private Utilities utilities = new Utilities();
 
     @Autowired
     private SalesRepRepository salesRepRepository;
@@ -39,11 +40,26 @@ public class SalesRepService {
             System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
             System.out.println();
 
-            menu.displayPrincipalMenu(scanner);
         }
 
         public void showSalesRep(Scanner scanner){
+            //Header of the method
+            System.out.println();
+            System.out.println(Colors.GREEN_BOLD_BRIGHT + "You have selected the \"Show salesReps\" option");
+            System.out.println(Colors.RESET);
 
+            SalesRepList(scanner);
+
+            System.out.println();
+            Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+            System.out.println();
+            System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+            System.out.println();
+        }
+
+        public void SalesRepList(Scanner scanner){
+            List<SalesRep> salesReps = salesRepRepository.findAll();
+            utilities.printSalesRep(salesReps);
         }
 
 
