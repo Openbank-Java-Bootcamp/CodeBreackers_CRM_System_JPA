@@ -219,11 +219,11 @@ public class Utilities {
                 s = Status.OPEN;
                 System.out.println(s+ " Selected!");
                 break;
-            case "CLOSE_WON":
+            case "CLOSED_WON":
                 s = Status.CLOSED_WON;
                 System.out.println(s+ " Selected!");
                 break;
-            case "CLOSE_LOST":
+            case "CLOSED_LOST":
                 s = Status.CLOSED_LOST;
                 System.out.println(s+ " Selected!");
                 break;
