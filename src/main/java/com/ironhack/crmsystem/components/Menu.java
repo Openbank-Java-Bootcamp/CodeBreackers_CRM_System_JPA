@@ -135,32 +135,37 @@ public class Menu {
         System.out.println("You have the following options:");
         System.out.println("Please, type the command indicated [in brackets] for the action you want to perform");
         System.out.println(Colors.RESET);
-        System.out.println("  - Display Opportunities by SalesRep" + Colors.YELLOW_BRIGHT + " [Report Opportunity by SalesRep]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Status" + Colors.YELLOW_BRIGHT + " [Report by Status]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Product" + Colors.YELLOW_BRIGHT + " [Report Opportunity by the product]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Product and Status" + Colors.YELLOW_BRIGHT + " [Report by Product and Status]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Country" + Colors.YELLOW_BRIGHT + " [Report Opportunity by the Country]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Country an Status" + Colors.YELLOW_BRIGHT + " [Report by Country and Status]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by City" + Colors.YELLOW_BRIGHT + " [Report Opportunity by the City]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by City and Status" + Colors.YELLOW_BRIGHT + " [Report by City and Status]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Industry" + Colors.YELLOW_BRIGHT + " [Report Opportunity by the Industry]" + Colors.RESET); //New
-        System.out.println("  - Display Opportunities by Industry and Status" + Colors.YELLOW_BRIGHT + " [Report by Industry and Status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by SalesRep" + Colors.YELLOW_BRIGHT + " [report by salesrep]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Status" + Colors.YELLOW_BRIGHT + " [report by salesrep and status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Product" + Colors.YELLOW_BRIGHT + " [report by product]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Product and Status" + Colors.YELLOW_BRIGHT + " [report by product and status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Country" + Colors.YELLOW_BRIGHT + " [report by country]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Country an Status" + Colors.YELLOW_BRIGHT + " [report by country and status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by City" + Colors.YELLOW_BRIGHT + " [report by city]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by City and Status" + Colors.YELLOW_BRIGHT + " [report by city and status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Industry" + Colors.YELLOW_BRIGHT + " [report by industry]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Industry and Status" + Colors.YELLOW_BRIGHT + " [report by industry and status]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Quantity" + Colors.YELLOW_BRIGHT + " [report by quantity]" + Colors.RESET); //New
+        System.out.println("  - Display Opportunities by Quantity and Status" + Colors.YELLOW_BRIGHT + " [report by quantity and status]" + Colors.RESET); //New
 
         boolean selected = false;
         String option = "";
         while (option.isEmpty()) {
             option = scanner.nextLine().toLowerCase();
             switch (option) {
-                case "report opportunity by salesrep" -> opportunityService.opportunitiesBySalesRep(scanner);
-                case "report by status" -> opportunityService.opportunitiesByStatus(scanner);
-                case "report opportunity by the product" -> opportunityService.opportunitiesByProduct(scanner);
-                case "report opportunity by the product and status" -> opportunityService.opportunitiesByProductAndProduct(scanner);
-                case "report opportunity by country" -> opportunityService.opportunitiesByCountry(scanner);
-                case "report opportunity by country and status" -> opportunityService.opportunitiesByCountryAndStatus(scanner);
-                case "report opportunity by the city" -> opportunityService.opportunitiesByCity(scanner);
-                case "report opportunity by city and status" -> opportunityService.opportunitiesByCityAndStatus(scanner);
-                case "report opportunity by the industry" -> opportunityService.opportunitiesByIndustry(scanner);
-                case "report opportunity by the industry and status" -> opportunityService.opportunitiesByIndustryAndStatus(scanner);
+                case "report by salesrep" -> opportunityService.opportunitiesBySalesRep(scanner);
+                //cambio de nombre
+                case "report by salesrep and status" -> opportunityService.opportunitiesBySalesRepAndStatus(scanner);
+                case "report by product" -> opportunityService.opportunitiesByProduct(scanner);
+                case "report by product and status" -> opportunityService.opportunitiesByProductAndStatus(scanner);
+                case "report by country" -> opportunityService.opportunitiesByCountry(scanner);
+                case "report by country and status" -> opportunityService.opportunitiesByCountryAndStatus(scanner);
+                case "report by city" -> opportunityService.opportunitiesByCity(scanner);
+                case "report by city and status" -> opportunityService.opportunitiesByCityAndStatus(scanner);
+                case "report by industry" -> opportunityService.opportunitiesByIndustry(scanner);
+                case "report by the industry and status" -> opportunityService.opportunitiesByIndustryAndStatus(scanner);
+                case "report by quantity" -> opportunityService.opportunitiesByQuantity(scanner);
+                case "report by quantity and status" -> opportunityService.opportunitiesByQuantityAndStatus(scanner);
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
@@ -168,7 +173,7 @@ public class Menu {
 
             }
         }
-
+        displayOptionOpportunityMenu(scanner);
     }
 
     public void selectOptionAccountMenu(Scanner scanner) {

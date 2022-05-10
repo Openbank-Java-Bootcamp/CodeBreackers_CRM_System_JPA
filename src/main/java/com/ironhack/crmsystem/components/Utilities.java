@@ -2,9 +2,11 @@ package com.ironhack.crmsystem.components;
 import com.ironhack.crmsystem.enums.Industry;
 import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
+import com.ironhack.crmsystem.model.Account;
 import com.ironhack.crmsystem.model.Lead;
 import com.ironhack.crmsystem.model.SalesRep;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -191,6 +193,45 @@ public class Utilities {
         for (int i= 0; i < list.size(); i++){
             System.out.println(list.get(i).getId() + " " + list.get(i).getName());
         }
+    }
+
+    public static void printAccount(List<Account> list){
+        for (int i= 0; i < list.size(); i++){
+            System.out.println(list.get(i).getId() + " " + list.get(i).getName());
+        }
+    }
+
+    public void printStats(List<Object[]> lists){
+        for (Object[] o : lists){
+            for (Object j : o){
+                System.out.print(j + "     ");
+
+            }
+            System.out.println();
+        }
+    }
+
+    public Status StateSelection(Scanner scanner){
+        Status s;
+        String status = scanner.nextLine().toUpperCase();
+        switch (status){
+            case "OPEN":
+                s = Status.OPEN;
+                System.out.println(s+ " Selected!");
+                break;
+            case "CLOSE_WON":
+                s = Status.CLOSED_WON;
+                System.out.println(s+ " Selected!");
+                break;
+            case "CLOSE_LOST":
+                s = Status.CLOSED_LOST;
+                System.out.println(s+ " Selected!");
+                break;
+            default:
+                System.err.println("Invalid input. Please try again");
+                s = StateSelection(scanner);
+        }
+        return s;
     }
 
 
