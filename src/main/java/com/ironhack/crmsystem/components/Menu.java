@@ -163,7 +163,7 @@ public class Menu {
                 case "report by city" -> opportunityService.opportunitiesByCity(scanner);
                 case "report by city and status" -> opportunityService.opportunitiesByCityAndStatus(scanner);
                 case "report by industry" -> opportunityService.opportunitiesByIndustry(scanner);
-                case "report by the industry and status" -> opportunityService.opportunitiesByIndustryAndStatus(scanner);
+                case "report by industry and status" -> opportunityService.opportunitiesByIndustryAndStatus(scanner);
                 case "report by quantity" -> opportunityService.opportunitiesByQuantity(scanner);
                 case "report by quantity and status" -> opportunityService.opportunitiesByQuantityAndStatus(scanner);
                 case "exit" -> displayPrincipalMenu(scanner);
