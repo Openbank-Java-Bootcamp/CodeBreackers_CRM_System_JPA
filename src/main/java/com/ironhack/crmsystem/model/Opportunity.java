@@ -15,7 +15,8 @@ public class Opportunity {
     private Product product;
     private int quantity;
 
-    @OneToOne(mappedBy = "opportunity")
+    @OneToOne
+    @JoinColumn(name = "contact_id")
     private Contact decisionMaker;
 
     @Enumerated(EnumType.STRING)
