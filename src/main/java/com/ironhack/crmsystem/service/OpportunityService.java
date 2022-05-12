@@ -178,8 +178,8 @@ public class OpportunityService {
     }
 
     public void maxQuantity(){
-        double max=opportunityRepository.getMaxQuantity();
-        System.out.println("Max Quantity is" + max);
+        int max=opportunityRepository.getMaxQuantity();
+        System.out.println("Max Quantity is: " + max);
 
         System.out.println();
         Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
@@ -188,8 +188,8 @@ public class OpportunityService {
         System.out.println();
     }
     public void minQuantity(){
-        double min=opportunityRepository.getMinQuantity();
-        System.out.println("Min Quantity is" + min);
+        int min=opportunityRepository.getMinQuantity();
+        System.out.println("Min Quantity is: " + min);
 
         System.out.println();
         Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
@@ -198,8 +198,8 @@ public class OpportunityService {
         System.out.println();
     }
     public void meanQuantity(){
-        double mean=opportunityRepository.getAvgQuantity();
-        System.out.println("Mean Quantity is"+ mean);
+        //double mean=opportunityRepository.getAvgQuantity();
+        System.out.println("Mean Quantity is: "+ opportunityRepository.getAvgQuantity());
 
         System.out.println();
         Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");

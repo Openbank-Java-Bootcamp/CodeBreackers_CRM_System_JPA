@@ -11,22 +11,24 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Integer> {
 
-     @Query(value = "SELECT MAX(quantity) FROM Opportunity GROUP BY account_id")
+     @Query("SELECT MAX(quantity) FROM Opportunity")
      int getMaxQuantity();
 
-     @Query(value = "SELECT MIN(quantity) FROM Opportunity GROUP BY account_id")
+     @Query("SELECT MIN(quantity) FROM Opportunity")
      int getMinQuantity();
 
-     @Query(value = "SELECT AVG(quantity) FROM Opportunity GROUP BY account_id")
+     @Query("SELECT AVG(quantity) FROM Opportunity")
      double getAvgQuantity();
 
      //Median
-    @Query(value = "SELECT quantity FROM Opportunity ORDER BY quantity LIMIT :row,1",nativeQuery = true)
+    @Query(value = "SELECT quantity FROM opportunities ORDER BY quantity LIMIT :row,1",nativeQuery = true)
     Integer medianOfOddDBOpp(@Param("row") int row);
-    @Query(value = "SELECT AVG(quantity) FROM (SELECT quantity FROM Opportunity ORDER BY quantity LIMIT :row,2) AS t",nativeQuery = true)
+
+    @Query(value = "SELECT AVG(quantity) FROM (SELECT quantity FROM opportunities ORDER BY quantity LIMIT :row,2) AS t",nativeQuery = true)
     Double medianOfEvenDBOpp(@Param("row") int row);
 
-    @Query(value = "SELECT COUNT(*) FROM Opportunity",nativeQuery = true)
+
+    @Query("SELECT COUNT(*) FROM Opportunity")
     Integer sizeOfOpportunityDatabase();
 
 
