@@ -270,6 +270,22 @@ public class LeadService {
     }
 
     public void countOfLeadsBySalesRep(){
+        //Header of the method
+        System.out.println();
+        System.out.println(Colors.GREEN_BOLD_BRIGHT + "You have selected the \"Leads By SalesRep\" option");
+        System.out.println(Colors.RESET);
+
+        List<Object[]> objectList = leadRepository.countOfLeadsBySalesRep();
+        System.out.println("Count of leads by salesRep:");
+        for (Object[] obj : objectList) {
+            System.out.println("SalesRep: " +obj[0].toString() +"  ------> Count of Leads: "+ obj[1].toString());
+        }
+
+        System.out.println();
+        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        System.out.println();
+        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+        System.out.println();
 
     }
 }

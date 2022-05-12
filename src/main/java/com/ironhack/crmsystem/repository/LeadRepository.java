@@ -12,4 +12,7 @@ public interface LeadRepository extends JpaRepository<Lead, Integer> {
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM leads")
     int getCount();
 
+    @Query(value = "SELECT sales_reps.name, COUNT(*) FROM leads INNER JOIN sales_reps ON leads.sales_rep_id = sales_reps.id GROUP BY sales_rep_id",nativeQuery = true)
+    List<Object[]> countOfLeadsBySalesRep();
+
 }
