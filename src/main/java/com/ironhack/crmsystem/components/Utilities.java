@@ -2,9 +2,12 @@ package com.ironhack.crmsystem.components;
 import com.ironhack.crmsystem.enums.Industry;
 import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
+import com.ironhack.crmsystem.model.Account;
 import com.ironhack.crmsystem.model.Lead;
+import com.ironhack.crmsystem.model.Opportunity;
 import com.ironhack.crmsystem.model.SalesRep;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -193,51 +196,49 @@ public class Utilities {
         }
     }
 
+    public static void printAccount(List<Account> list){
+        for (int i= 0; i < list.size(); i++){
+            System.out.println(list.get(i).getId() + " " + list.get(i).getName());
+        }
+    }
 
-    //============= Metodos que hay que rehacer utilizando Repository ================
-
-    /*//Method that verifies that the id is lead and a String
-    public static int IdNumber(Scanner scanner){
-        System.out.println("Please enter de " +  Colors.YELLOW_BOLD_BRIGHT + " [ID] " + Colors.RESET+ "of the lead you would like to upgrade: ");
-        int id = 0;
-        try {
-            //id = scanner.nextInt();
-            String idString = scanner.nextLine();
-            id = Integer.parseInt(idString);
-            boolean valid = leadMap.containsKey(id);
-            if (!valid) {
-                System.err.println("Lead ID not valid. Try again.");
-                id = IdNumber(scanner);
+    public void printStats(List<Object[]> lists){
+        for (Object[] o : lists){
+            for (Object j : o){
+                System.out.print(j + "  ");
             }
-        }catch(Exception e){
-            System.err.println("That´s not a number. Please try again");
-            id = IdNumber(scanner);
-        }
-        return id;
-    }
-
-    public static Opportunity OpportunityFromLead(Product product, int quantity, Contact contact){
-        Opportunity opportunity = new Opportunity(product, quantity, contact, Status.OPEN);
-        opportunityMap.put(opportunity.getId(), opportunity);
-        return opportunity;
-    }
-
-     //Find Contact
-    public static Contact ContactFromLead(int id){
-        Lead leadToConvert = leadMap.get(id);
-        Contact contact = new Contact(leadToConvert.getName(), leadToConvert.getPhoneNumber(), leadToConvert.getEmailAddress(), leadToConvert.getCompanyName());
-        contactMap.put(contact.getId(),contact);
-        return contact;
-    }
-
-     public static void showOpportunities(){
-        for (Map.Entry<Integer, Opportunity> entry : opportunityMap.entrySet()) {
-            Integer key = entry.getKey();
-            String name = entry.getValue().getDecisionMaker().getName();
-            String status = entry.getValue().getStatus().toString();
-            System.out.println(key + ". DECISION MAKER: " + name + ". STATUS: " + status);
+            System.out.println();
         }
     }
-*/
 
+    public Status StateSelection(Scanner scanner){
+        Status s;
+        String status = scanner.nextLine().toUpperCase();
+        switch (status){
+            case "OPEN":
+                s = Status.OPEN;
+                System.out.println(s+ " Selected!");
+                break;
+            case "CLOSED_WON":
+                s = Status.CLOSED_WON;
+                System.out.println(s+ " Selected!");
+                break;
+            case "CLOSED_LOST":
+                s = Status.CLOSED_LOST;
+                System.out.println(s+ " Selected!");
+                break;
+            default:
+                System.err.println("Invalid input. Please try again");
+                s = StateSelection(scanner);
+        }
+        return s;
+    }
+
+    public void printOpportunities(List<Opportunity> list){
+        for (int i= 0; i < list.size(); i++){
+            System.out.println(list.get(i).getId() + " DECISION_MAKER: "
+                    + list.get(i).getDecisionMaker() + " STATUS: "
+                    + list.get(i).getStatus().toString());
+        }
+    }
 }

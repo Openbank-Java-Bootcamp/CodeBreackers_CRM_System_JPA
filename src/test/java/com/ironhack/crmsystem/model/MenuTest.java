@@ -29,6 +29,18 @@ class MenuTest {
         Scanner scanner = new Scanner(new StringReader(""));
         assertThrows(Exception.class,() -> Menu.selectOption(scanner,crm));
     }
+
+
+
+    selectOptionPrincipalMenu
+
+    displayOptionLeadsMenu
+
+    displayOptionOpportunityMenu
+
+    selectOptionAccountMenu
+
+    selectOptionQuantityMenu
 */
 
 

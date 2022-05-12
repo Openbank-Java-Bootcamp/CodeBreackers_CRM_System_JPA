@@ -16,11 +16,9 @@ public class Contact {
     private String companyName;
 
 
-    //este es necesario? o puede no estar y que sea unidireccional....??
-    @OneToOne
-    @JoinColumn(name = "opportunity_id", referencedColumnName = "id")
-    private Opportunity opportunity;
 
+    public Contact() {
+    }
 
     public Contact(String name, String phoneNumber, String emailAddress, String companyName) {
         this.name = name;

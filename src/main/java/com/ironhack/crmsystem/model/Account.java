@@ -24,11 +24,11 @@ public class Account {
     private String country;
     private String name; //take it from lead object
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "account_id")
     private List<Contact> contactList;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "account_id")
     private List<Opportunity> opportunityList;
 
@@ -43,6 +43,14 @@ public class Account {
         this.name = name;
         this.contactList = contactList;
         this.opportunityList = opportunityList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Contact> getContactList() {
