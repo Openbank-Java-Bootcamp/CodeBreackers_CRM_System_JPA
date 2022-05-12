@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class LeadService {
 
     private Utilities utilities = new Utilities();
+    private Menu menu = new Menu();
     @Autowired
     private SalesRepRepository salesRepRepository;
 
@@ -62,7 +63,6 @@ public class LeadService {
         System.out.println();
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();
-
     }
 
     public SalesRep LeadSalesRep(Scanner Scanner){
@@ -83,73 +83,86 @@ public class LeadService {
         return s;
     }
 
-    public void convertLead(Scanner scanner){
+    public void convertLead(Scanner scanner) {
         //Header of the method
         System.out.println();
-        System.out.println(Colors.GREEN_BOLD_BRIGHT + "You have selected the \"NewLead\" option");
+        System.out.println(Colors.GREEN_BOLD_BRIGHT + "You have selected the \"Convert a Lead into an Opportunity\" option");
         System.out.println(Colors.YELLOW_BOLD_BRIGHT + "You must enter the data that will be requested below");
         System.out.println(Colors.RESET);
 
-        //selection of the LEAD
-        System.out.println("These are the leads available: ");
-        LeadsList();
-        System.out.println("Please introduce the ID of the lead you would like to convert");
-        Lead l= leadId(scanner);
+        if (leadRepository.getCount() == 0) {
+            System.out.println("The company has no Leads");
+            System.out.println();
+            Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+            System.out.println();
+            System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+            System.out.println();
+            menu.displayPrincipalMenu(scanner);
+        } else {
+            //selection of the LEAD
+            System.out.println("These are the leads available: ");
+            LeadsList();
+            System.out.println("Please introduce the ID of the lead you would like to convert");
+            int id = Integer.parseInt(scanner.toString());
+            if (leadRepository.findById(id).isPresent()) {
 
-        //create a Contact with the LEAD info
-        Contact c = new Contact(l.getName(),l.getPhoneNumber(),l.getEmailAddress(),l.getCompanyName());
-        contactRepository.save(c);
+                Lead l = leadId(scanner);
 
-        System.out.println("Now we will ask you some information to create the Opportunity");
-        //creation of the opportunity
-        SalesRep s = l.getSalesRep();
-        System.out.println("Select the type of product: ");
-        utilities.printEnum("product");
-        scanner.nextLine();
-        Product p = utilities.productSelection(scanner);
-        System.out.println("Quantity you want to purchase: ");
-        int quantity = utilities.quantityNumber(scanner);
-        Opportunity o = new Opportunity(p,quantity,c, Status.OPEN, s);
-        opportunityRepository.save(o);
+                //create a Contact with the LEAD info
+                Contact c = new Contact(l.getName(), l.getPhoneNumber(), l.getEmailAddress(), l.getCompanyName());
+                contactRepository.save(c);
+
+                System.out.println("Now we will ask you some information to create the Opportunity");
+                //creation of the opportunity
+                SalesRep s = l.getSalesRep();
+                System.out.println("Select the type of product: ");
+                utilities.printEnum("product");
+                scanner.nextLine();
+                Product p = utilities.productSelection(scanner);
+                System.out.println("Quantity you want to purchase: ");
+                int quantity = utilities.quantityNumber(scanner);
+                Opportunity o = new Opportunity(p, quantity, c, Status.OPEN, s);
+                opportunityRepository.save(o);
 
 
-        //creation of the account
-        if (!createNewAccount(scanner)){
-            System.out.println("These are the actual accounts");
-            List<Account> accounts = accountRepository.findAll();
-            utilities.printAccount(accounts);
-            System.out.println("Input the ID of you account: ");
-            Account a = validAccountId(scanner);
-            a.getContactList().add(c);
-            a.getOpportunityList().add(o);
-            accountRepository.save(a);
-        }else{
-            System.out.println("Now we will ask you some information to create the Account: ");
-            System.out.println("Number of employees of your company:");
-            int employees = utilities.quantityNumber(scanner);
-            System.out.println("Select a type of industry");
-            utilities.printEnum("industry");
-            Industry i = utilities.industrySelection(scanner);
-            String country = utilities.countryInput(scanner);
-            System.out.println("Write the city please");
-            String city = scanner.nextLine();
-            List<Contact>  contacts= new ArrayList<>();
-            contacts.add(c);
-            List<Opportunity> opportunities = new ArrayList<>();
-            opportunities.add(o);
-            Account ac = new Account(i,employees,city,country, l.getCompanyName(),contacts, opportunities);
-            accountRepository.save(ac);
+                //creation of the account
+                if (!createNewAccount(scanner)) {
+                    System.out.println("These are the actual accounts");
+                    List<Account> accounts = accountRepository.findAll();
+                    utilities.printAccount(accounts);
+                    System.out.println("Input the ID of you account: ");
+                    Account a = validAccountId(scanner);
+                    a.getContactList().add(c);
+                    a.getOpportunityList().add(o);
+                    accountRepository.save(a);
+                } else {
+                    System.out.println("Now we will ask you some information to create the Account: ");
+                    System.out.println("Number of employees of your company:");
+                    int employees = utilities.quantityNumber(scanner);
+                    System.out.println("Select a type of industry");
+                    utilities.printEnum("industry");
+                    Industry i = utilities.industrySelection(scanner);
+                    String country = utilities.countryInput(scanner);
+                    System.out.println("Write the city please");
+                    String city = scanner.nextLine();
+                    List<Contact> contacts = new ArrayList<>();
+                    contacts.add(c);
+                    List<Opportunity> opportunities = new ArrayList<>();
+                    opportunities.add(o);
+                    Account ac = new Account(i, employees, city, country, l.getCompanyName(), contacts, opportunities);
+                    accountRepository.save(ac);
+                }
+                leadRepository.deleteById(l.getId());
+
+                //Foot of the method
+                System.out.println();
+                System.out.println(Colors.YELLOW_BOLD_BRIGHT + "You have converted the Lead suscesfully!!");
+                Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+                System.out.println();
+                System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+                System.out.println();
+            }
         }
-        leadRepository.deleteById(l.getId());
-
-        //Foot of the method
-        System.out.println();
-        System.out.println(Colors.YELLOW_BOLD_BRIGHT + "You have converted the Lead suscesfully!!");
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
-
     }
 
     public Account validAccountId(Scanner scanner){

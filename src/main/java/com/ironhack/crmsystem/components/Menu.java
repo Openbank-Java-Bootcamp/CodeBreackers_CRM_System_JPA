@@ -111,6 +111,7 @@ public class Menu {
         System.out.println("  - Display list of Leads" + Colors.YELLOW_BRIGHT + " [Show Leads]" + Colors.RESET);
         System.out.println("  - Show details of a Lead" + Colors.YELLOW_BRIGHT + " [Lookup Lead]" + Colors.RESET);
         System.out.println("  - Count of Leads by SalesRep" + Colors.YELLOW_BRIGHT + " [Leads by SalesRep]" + Colors.RESET);
+        System.out.println("  - Return to principal menu " + Colors.YELLOW_BRIGHT + " [exit]" + Colors.RESET);
         boolean selected = false;
         String option = "";
         while (option.isEmpty()) {
@@ -147,6 +148,7 @@ public class Menu {
         System.out.println("  - Display Opportunities by Industry and Status" + Colors.YELLOW_BRIGHT + " [report by industry and status]" + Colors.RESET); //New
         System.out.println("  - Display Opportunities by Quantity" + Colors.YELLOW_BRIGHT + " [report by quantity]" + Colors.RESET); //New
         System.out.println("  - Display Opportunities by Quantity and Status" + Colors.YELLOW_BRIGHT + " [report by quantity and status]" + Colors.RESET); //New
+        System.out.println("  - Return to principal menu " + Colors.YELLOW_BRIGHT + " [exit]" + Colors.RESET);
 
         boolean selected = false;
         String option = "";
@@ -191,6 +193,7 @@ public class Menu {
         System.out.println("  - Minimum number of Opportunity" + Colors.YELLOW_BRIGHT + " [Min Opportunity]" + Colors.RESET); //New
         System.out.println("  - Mean number of Opportunity" + Colors.YELLOW_BRIGHT + " [Mean Opportunity]" + Colors.RESET); //New
         System.out.println("  - Median number of Opportunity" + Colors.YELLOW_BRIGHT + " [Median Opportunity]" + Colors.RESET); //New
+        System.out.println("  - Return to principal menu " + Colors.YELLOW_BRIGHT + " [exit]" + Colors.RESET);
 
         boolean selected = false;
         String option = "";
@@ -201,10 +204,10 @@ public class Menu {
                 case "min employeecount" -> accountService.minEmployeeCont();
                 case "mean employeecount" -> accountService.meanEmployeeCont();
                 case "median employeecount" -> accountService.medianEmployeeCont();
-                case "max opportunity" -> accountService.maxOpportunity();
-                case "min opportunity" -> accountService.minOpportunity();
-                case "mean opportunity" -> accountService.meanOpportunity();
-                case "median opportunity" -> accountService.medianOpportunity();
+                case "max opportunity" -> opportunityService.maxOpportunityByAccount();
+                case "min opportunity" -> opportunityService.minOpportunityByAccount();
+                case "mean opportunity" -> opportunityService.meanOpportunityByAccount();
+                case "median opportunity" -> opportunityService.medianOpportunityByAccount();
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
@@ -213,7 +216,7 @@ public class Menu {
             }
         }
 
-
+        selectOptionAccountMenu(scanner);
     }
     public void selectOptionQuantityMenu(Scanner scanner) {
         System.out.print(Colors.GREEN_BOLD_BRIGHT);
@@ -225,6 +228,7 @@ public class Menu {
         System.out.println("  - Minimum number of Quantity" + Colors.YELLOW_BRIGHT + " [Min Quantity]" + Colors.RESET); //New
         System.out.println("  - Mean number of Quantity" + Colors.YELLOW_BRIGHT + " [Mean Quantity]" + Colors.RESET); //New
         System.out.println("  - Median number of Quantity" + Colors.YELLOW_BRIGHT + " [Median Quantity]" + Colors.RESET); //New
+        System.out.println("  - Return to principal menu " + Colors.YELLOW_BRIGHT + " [exit]" + Colors.RESET);
         boolean selected = false;
         String option = "";
         while (option.isEmpty()) {
@@ -242,6 +246,6 @@ public class Menu {
             }
 
         }
+        selectOptionQuantityMenu(scanner);
     }
-
 }

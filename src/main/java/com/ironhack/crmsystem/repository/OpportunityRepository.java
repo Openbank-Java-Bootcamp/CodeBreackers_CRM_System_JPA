@@ -1,6 +1,5 @@
 package com.ironhack.crmsystem.repository;
 
-import com.ironhack.crmsystem.enums.Status;
 import com.ironhack.crmsystem.model.Opportunity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -61,7 +60,19 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
      @Query(nativeQuery = true, value="SELECT accounts.industry, COUNT(*) FROM opportunities JOIN accounts ON opportunities.account_id = accounts.id WHERE opportunities.status = :s GROUP BY accounts.industry" )
      List<Object[]> findByIndustryAndStatus( String s);
 
+     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM opportunities")
+     int getCount();
 
+     @Query(nativeQuery = true, value = "SELECT accounts.name, COUNT(*) AS amount FROM opportunities JOIN accounts ON opportunities.account_id = accounts.id GROUP BY opportunities.account_id LIMIT 1")
+     Object findMaxOpportunityByAccount();
 
+     @Query(nativeQuery = true, value = "SELECT accounts.name, COUNT(*) AS amount FROM opportunities JOIN accounts ON opportunities.account_id = accounts.id GROUP BY opportunities.account_id ORDER BY amount ASC LIMIT 1")
+     Object findMinOpportunityByAccount();
+
+     //@Query(nativeQuery = true, value = "SELECT AVG (c.amount) FROM (SELECT COUNT(*) AS amount FROM opportunities JOIN accounts ON opportunities.account_id = accounts.id GROUP BY opportunities.account_id ORDER BY amount DESC) AS c")
+     //Object finAvgOpportunityByAccount();
+
+     @Query(nativeQuery = true, value = "SELECT accounts.name, COUNT(*) AS amount FROM opportunities JOIN accounts ON opportunities.account_id = accounts.id GROUP BY opportunities.account_id ORDER BY amount DESC")
+     List<Object[]> findOpportunitiesByAccount();
 
 }
