@@ -119,7 +119,7 @@ public class Menu {
             switch (option) {
                 case "show leads" -> leadService.showLeads(scanner);
                 case "lookup lead" -> leadService.leadDetail(scanner);
-                case "Leads by salesrep" -> leadService.countOfLeadsBySalesRep();
+                case "leads by salesrep" -> leadService.countOfLeadsBySalesRep();
                 case "exit" -> displayPrincipalMenu(scanner);
                 default -> {
                     System.out.println("Wrong command. Please, try again");
