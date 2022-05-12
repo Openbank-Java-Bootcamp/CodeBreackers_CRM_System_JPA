@@ -19,17 +19,5 @@ public class AccountService {
     public void medianEmployeeCont(){
 
     }
-    public void maxOpportunity(){
 
-    }
-    public void minOpportunity(){
-
-    }
-    public void meanOpportunity(){
-
-    }
-
-    public void medianOpportunity(){
-
-    }
 }
