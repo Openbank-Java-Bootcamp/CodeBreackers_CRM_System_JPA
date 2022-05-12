@@ -1,10 +1,14 @@
 package com.ironhack.crmsystem.repository;
 
+
+import com.ironhack.crmsystem.enums.Status;
+
 import com.ironhack.crmsystem.enums.Industry;
 import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
 import com.ironhack.crmsystem.model.Account;
 import com.ironhack.crmsystem.model.Contact;
+
 import com.ironhack.crmsystem.model.Opportunity;
 import com.ironhack.crmsystem.model.SalesRep;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.util.List;
 import java.util.Set;
@@ -98,4 +103,5 @@ class OpportunityRepositoryTest {
     medianOpportunityByAccount
 
      */
+
 }
