@@ -12,7 +12,8 @@ public class Opportunity {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    private Product product;
+    private  Product product;
+
     private int quantity;
 
     @OneToOne(mappedBy = "opportunity")
