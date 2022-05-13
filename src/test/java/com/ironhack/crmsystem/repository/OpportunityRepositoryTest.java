@@ -8,17 +8,20 @@ import com.ironhack.crmsystem.model.Contact;
 import com.ironhack.crmsystem.model.Opportunity;
 import com.ironhack.crmsystem.model.SalesRep;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+@ActiveProfiles("test")
 @SpringBootTest
 class OpportunityRepositoryTest {
-
     @Autowired
     OpportunityRepository opportunityRepository;
     @Autowired
@@ -29,7 +32,7 @@ class OpportunityRepositoryTest {
     @Autowired
     SalesRepRepository salesRepRepository;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         SalesRep s = new SalesRep("Pedro");
         SalesRep s2 = new SalesRep("Paula");
@@ -49,6 +52,7 @@ class OpportunityRepositoryTest {
         accountRepository.save(ac2);
     }
 
+    /*
     @AfterEach
     void tearDown() {
        accountRepository.deleteAll();
@@ -57,6 +61,8 @@ class OpportunityRepositoryTest {
        salesRepRepository.deleteAll();
     }
 
+
+     */
     @Test
     void findBySalesRepo_WORKS(){
         List<Object[]> result = opportunityRepository.findBySalesRepo();

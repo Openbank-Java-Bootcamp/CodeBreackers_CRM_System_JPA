@@ -8,6 +8,7 @@ import com.ironhack.crmsystem.enums.Product;
 import com.ironhack.crmsystem.enums.Status;
 import com.ironhack.crmsystem.model.*;
 import com.ironhack.crmsystem.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +83,7 @@ public class LeadService {
         }
         return s;
     }
-
+    @Transactional
     public void convertLead(Scanner scanner) {
         //Header of the method
         System.out.println();
@@ -90,7 +91,11 @@ public class LeadService {
         System.out.println(Colors.YELLOW_BOLD_BRIGHT + "You must enter the data that will be requested below");
         System.out.println(Colors.RESET);
 
-        if (leadRepository.getCount() == 0) {
+        Lead l = new Lead();
+        Contact c = new Contact();
+        Opportunity o = new Opportunity();
+
+            if (leadRepository.getCount() == 0) {
             System.out.println("The company has no Leads");
             System.out.println();
             Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
@@ -98,19 +103,17 @@ public class LeadService {
             System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
             System.out.println();
             menu.displayPrincipalMenu(scanner);
-        } else {
+            } else {
             //selection of the LEAD
             System.out.println("These are the leads available: ");
             LeadsList();
             System.out.println("Please introduce the ID of the lead you would like to convert");
-            int id = Integer.parseInt(scanner.toString());
-            if (leadRepository.findById(id).isPresent()) {
+            }
 
-                Lead l = leadId(scanner);
+            //int id = Integer.parseInt(scanner.toString());
+            //if (leadRepository.findById().isPresent()) {
 
-                //create a Contact with the LEAD info
-                Contact c = new Contact(l.getName(), l.getPhoneNumber(), l.getEmailAddress(), l.getCompanyName());
-                contactRepository.save(c);
+                l = leadId(scanner);
 
                 System.out.println("Now we will ask you some information to create the Opportunity");
                 //creation of the opportunity
@@ -121,21 +124,29 @@ public class LeadService {
                 Product p = utilities.productSelection(scanner);
                 System.out.println("Quantity you want to purchase: ");
                 int quantity = utilities.quantityNumber(scanner);
-                Opportunity o = new Opportunity(p, quantity, c, Status.OPEN, s);
+                c = new Contact(l.getName(), l.getPhoneNumber(), l.getEmailAddress(), l.getCompanyName());
+                contactRepository.save(c);
+                 o = new Opportunity(p, quantity, c, Status.OPEN, s);
+                leadRepository.deleteById(l.getId());
                 opportunityRepository.save(o);
-
+                List<Account> acc = accountRepository.findAll();
 
                 //creation of the account
-                if (!createNewAccount(scanner)) {
-                    System.out.println("These are the actual accounts");
-                    List<Account> accounts = accountRepository.findAll();
-                    utilities.printAccount(accounts);
-                    System.out.println("Input the ID of you account: ");
-                    Account a = validAccountId(scanner);
-                    a.getContactList().add(c);
-                    a.getOpportunityList().add(o);
-                    accountRepository.save(a);
+                if (!createNewAccount(scanner) && acc.size()  != 0) {
+                        System.out.println("These are the actual accounts");
+                        List<Account> accounts = accountRepository.findAll();
+                        utilities.printAccount(accounts);
+                        System.out.println("Input the ID of you account: ");
+                        Account a = validAccountId(scanner);
+                        List<Opportunity> listopp = a.getOpportunityList();
+                        listopp.add(o);
+                        a.setOpportunityList(listopp);
+                        List<Contact> listcont = a.getContactList();
+                        listcont.add(c);
+                        a.setContactList(listcont);
+                        accountRepository.save(a);
                 } else {
+                    System.out.println("Maybe you chose to or maybe you have to create an account bc there are not any");
                     System.out.println("Now we will ask you some information to create the Account: ");
                     System.out.println("Number of employees of your company:");
                     int employees = utilities.quantityNumber(scanner);
@@ -152,7 +163,6 @@ public class LeadService {
                     Account ac = new Account(i, employees, city, country, l.getCompanyName(), contacts, opportunities);
                     accountRepository.save(ac);
                 }
-                leadRepository.deleteById(l.getId());
 
                 //Foot of the method
                 System.out.println();
@@ -161,9 +171,10 @@ public class LeadService {
                 System.out.println();
                 System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
                 System.out.println();
+
             }
-        }
-    }
+
+
 
     public Account validAccountId(Scanner scanner){
         Account account = new Account();

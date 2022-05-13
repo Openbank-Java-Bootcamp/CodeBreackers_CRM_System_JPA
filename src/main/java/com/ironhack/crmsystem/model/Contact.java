@@ -16,6 +16,21 @@ public class Contact {
     private String companyName;
 
 
+    /*
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+     */
+
+
+    /*
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+
+     */
 
     public Contact() {
     }
@@ -25,6 +40,7 @@ public class Contact {
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.companyName = companyName;
+
     }
 
     public int getId() {

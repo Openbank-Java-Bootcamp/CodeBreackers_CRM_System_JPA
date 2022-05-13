@@ -27,6 +27,35 @@ public class Opportunity {
     @JoinColumn(name="sales_rep_id", referencedColumnName = "id")
     private SalesRep salesRep;
 
+
+    /*
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+
+    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep, Account account) {
+        this.product = product;
+        this.quantity = quantity;
+        this.decisionMaker = decisionMaker;
+        this.status = status;
+        this.salesRep = salesRep;
+        this.account = account;
+    }
+
+
+     */
+
     public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
         this.product = product;
         this.quantity = quantity;
