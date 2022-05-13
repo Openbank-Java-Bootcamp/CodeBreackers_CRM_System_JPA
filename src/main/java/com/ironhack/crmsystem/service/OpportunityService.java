@@ -9,22 +9,33 @@ import com.ironhack.crmsystem.enums.Status;
 import com.ironhack.crmsystem.model.Opportunity;
 import com.ironhack.crmsystem.repository.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 @Service
 public class OpportunityService {
 
-    
-
+    @Autowired
+    private Environment environment;
     private Utilities u = new Utilities();
     private Menu menu = new Menu();
     @Autowired
     private OpportunityRepository opportunityRepository;
 
+    public void footer(){
+        System.out.println();
+        if(!Arrays.asList(environment.getActiveProfiles()).contains("test")) {
+            Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        }
+        System.out.println();
+        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+        System.out.println();
+    }
 
     public void changeOppStatus(Scanner scanner){
 
@@ -47,12 +58,8 @@ public class OpportunityService {
                     + Colors.YELLOW_BRIGHT + " [close-lost 4321]" + Colors.RESET);
             changeNewStatus(scanner);
         }
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
-        //menu.displayPrincipalMenu(scanner);
+
+        footer();
 
     }
 
@@ -237,18 +244,16 @@ public class OpportunityService {
         int max=opportunityRepository.getMaxQuantity();
         System.out.println("Max Quantity is: " + max);
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
     public void minQuantity(){
         int min=opportunityRepository.getMinQuantity();
         System.out.println("Min Quantity is: " + min);
 
         System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        if(!Arrays.asList(environment.getActiveProfiles()).contains("test")) {
+            Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        }
         System.out.println();
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();
@@ -257,11 +262,7 @@ public class OpportunityService {
         //double mean=opportunityRepository.getAvgQuantity();
         System.out.println("Mean Quantity is: "+ opportunityRepository.getAvgQuantity());
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+       footer();
     }
     public void medianQuantity(){
         int size = opportunityRepository.sizeOfOpportunityDatabase();
@@ -275,11 +276,7 @@ public class OpportunityService {
             System.out.println("Median Quantity is:  "+ evenMedian);
         }
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
 
     public void maxOpportunityByAccount() {
@@ -294,11 +291,7 @@ public class OpportunityService {
 
             System.out.println("The Account with the greatest Opportunities is " + nameAcc + " with a number of " + max);
         }
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
 
     public Object[] maxOpp() {
@@ -318,11 +311,7 @@ public class OpportunityService {
 
             System.out.println("The Account with fewer Opportunities is " + nameAcc + " with a number of " + min);
         }
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
 
     public Object[] minOpp() {
@@ -340,11 +329,7 @@ public class OpportunityService {
 
             System.out.println("The mean of Opportunities by Account is " + df.format(mean));
         }
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
 
     public double meanOpp() {
@@ -367,11 +352,7 @@ public class OpportunityService {
             double median = medianOpp();
             System.out.println("The mean of Opportunities by Account is " + df.format(median));
         }
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+       footer();
     }
 
     public double medianOpp(){

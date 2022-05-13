@@ -143,7 +143,7 @@ class OpportunityServiceTest {
         double mean = totalOpp / totalAcc;
         DecimalFormat df = new DecimalFormat("#.00");
 
-        assertEquals("2.00", df.format(mean));
+        assertEquals("2,00", df.format(mean));
     }
 
     @Test
@@ -162,7 +162,7 @@ class OpportunityServiceTest {
         }
         DecimalFormat df = new DecimalFormat("#.00");
 
-        assertEquals("2.00", df.format(median));
+        assertEquals("2,00", df.format(median));
     }
 
     @Test
@@ -179,7 +179,6 @@ class OpportunityServiceTest {
     void minQuantity_JPATest(){
         opportunityService.minQuantity();
         StringReader sr = new StringReader("s");
-        Scanner scan = new Scanner(sr);
         ConsoleCaptor consoleCaptor = new ConsoleCaptor();
         List<String> s = consoleCaptor.getStandardOutput();
         consoleCaptor.close();
@@ -205,4 +204,73 @@ class OpportunityServiceTest {
         consoleCaptor.close();
         assertThat(s.contains("7"));
     }
+
+    @Test
+    public void findBySalesRepo_WORK(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesBySalesRep(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+    @Test
+    void findByQuantity_WORKS(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesByQuantity(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+    @Test
+    void findByProduct_WORKS(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesByProduct(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+    @Test
+    void findByCountry_WORKS(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesByCountry(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+    @Test
+    void findByCity_WORKS(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesByCity(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+    @Test
+    void findByIndustry_WORKS(){
+        StringReader sr = new StringReader("s");
+        Scanner scan = new Scanner(sr);
+        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
+        opportunityService.opportunitiesByIndustry(scan);
+        List<String> s = consoleCaptor.getStandardOutput();
+        consoleCaptor.close();
+        assertThat(s.contains("7"));
+    }
+
+
 }
+

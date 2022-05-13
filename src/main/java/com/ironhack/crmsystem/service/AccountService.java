@@ -4,9 +4,11 @@ import com.ironhack.crmsystem.components.Colors;
 import com.ironhack.crmsystem.components.Menu;
 import com.ironhack.crmsystem.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.rmi.NoSuchObjectException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,6 +16,19 @@ import java.util.Scanner;
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private Environment environment;
+
+    public void footer(){
+        System.out.println();
+        if(!Arrays.asList(environment.getActiveProfiles()).contains("test")) {
+            Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        }
+        System.out.println();
+        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+        System.out.println();
+    }
 
     public void maxEmployeeCont(){
         //Header of the method
@@ -51,11 +66,7 @@ public class AccountService {
             System.out.println("Account: " +obj[0].toString() +".    Employee Count: "+ obj[1].toString());
         }
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
     }
 
     public void meanEmployeeCont(){
@@ -70,11 +81,7 @@ public class AccountService {
         int mean = accountRepository.findMeanEmployee();
         System.out.println("Mean Employee Count is:  "+mean);
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+       footer();
     }
     public void medianEmployeeCont(){
 
@@ -98,11 +105,7 @@ public class AccountService {
         }
 
 
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        footer();
 
     }
 
