@@ -20,8 +20,11 @@ public class CrmSystemApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		/*
 		Scanner scanner = new Scanner(System.in);
 		Menu.welcome();
 		menu.displayPrincipalMenu(scanner);
+
+		 */
 	}
 }

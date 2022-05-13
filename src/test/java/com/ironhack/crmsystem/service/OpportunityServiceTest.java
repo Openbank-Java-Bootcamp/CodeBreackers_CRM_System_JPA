@@ -5,6 +5,7 @@ import com.ironhack.crmsystem.enums.Status;
 import com.ironhack.crmsystem.model.Contact;
 import com.ironhack.crmsystem.model.Opportunity;
 import com.ironhack.crmsystem.model.SalesRep;
+import com.ironhack.crmsystem.repository.AccountRepository;
 import com.ironhack.crmsystem.repository.OpportunityRepository;
 import nl.altindag.console.ConsoleCaptor;
 import org.junit.jupiter.api.AfterEach;
@@ -28,11 +29,18 @@ class OpportunityServiceTest {
     @Autowired
     private OpportunityService opportunityService;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @BeforeEach
     void setUp() {
-        Opportunity opportunity1 = opportunityRepository.save(new Opportunity(Product.HYBRID, 100, new Contact("Juan","987654321","juanpp98@gmail.com", "Maujn"), Status.CLOSED_LOST, new SalesRep("Pedro") ));
-        Opportunity opportunity2 = opportunityRepository.save(new Opportunity(Product.FLATBED, 50, new Contact("Ana","983657144","ana998@gmail.com", "Bimb55"), Status.CLOSED_WON, new SalesRep("Carmen") ));
-        Opportunity opportunity3 = opportunityRepository.save(new Opportunity(Product.BOX, 17, new Contact("Luis","123456789","luis98@gmail.com", "dc34"), Status.OPEN, new SalesRep("Tomas")));
+        Contact c = new Contact("Juan","987654321","juanpp98@gmail.com", "Maujn");
+        Opportunity opportunity1 = opportunityRepository.save(new Opportunity(Product.HYBRID, 100,c, Status.CLOSED_LOST, new SalesRep("Pedro") ));
+        Contact c2 = new Contact("Ana","983657144","ana998@gmail.com", "Bimb55");
+        Opportunity opportunity2 = opportunityRepository.save(new Opportunity(Product.FLATBED, 50, c2, Status.CLOSED_WON, new SalesRep("Carmen") ));
+        Contact c3 =new Contact("Luis","123456789","luis98@gmail.com", "dc34");
+        Opportunity opportunity3 = opportunityRepository.save(new Opportunity(Product.BOX, 17, c3, Status.OPEN, new SalesRep("Tomas")));
+        //accountRepository.save(c);
         opportunityRepository.saveAll(List.of(opportunity1, opportunity2, opportunity3));
 
     }
@@ -41,6 +49,11 @@ class OpportunityServiceTest {
     void tearDown() {
         opportunityRepository.deleteAll();
     }
+
+
+
+
+
 
     @Test
     void maxQuantity_JPATest(){

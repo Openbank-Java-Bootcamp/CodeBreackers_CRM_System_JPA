@@ -41,28 +41,6 @@ class CRMTest {
         System.setErr(originalErr);
     }
 
-    //CONVERT ID TEST COVERAGE
-    @Test
-    public void IdNumber_Throw_notINT(){
-        //con el scan reader parece que se falsea el scanner
-        StringReader sr = new StringReader("s");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        List<String> s = consoleCaptor.getErrorOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("That´s not a number. Please try again"));
-    }
-
-    @Test
-    public void IdNumber_Works(){
-        Lead l = new Lead("pepe", "123123123", "pepe@gmail.com", "Matucos");
-        Map<Integer,Lead> leadMap = new HashMap<>();
-        leadMap.put(l.getId(), l);
-        crm.setLeadMap(leadMap);
-        StringReader sr = new StringReader("1");
-        Scanner scan = new Scanner(sr);
-        assertEquals(l.getId(), crm.IdNumber(scan) );
-    }
 
     @Test
     public void quantityNumber_Throw_notINT(){
@@ -76,36 +54,7 @@ class CRMTest {
     }
 
 
-    @Test
-    public void quantityNumber_err_minus1(){
-        StringReader sr = new StringReader("1");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        crm.quantityNumber(scan);
-        List<String> s = consoleCaptor.getErrorOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("The number must be bigger than 1"));
-    }
-    @Test
-    public void quatityNumber_Works(){
-        StringReader sr = new StringReader("20");
-        Scanner scan = new Scanner(sr);
-        assertEquals(20, crm.quantityNumber(scan));
-    }
-    @Test
-    public void ValidateCountry_true(){
-        assertTrue(crm.validateCountry("Spain"));
-    }
-    @Test
-    public void ValidateCountry_false(){
-        assertFalse(crm.validateCountry("Paloma"));
-    }
-    @Test
-    public void countryInput_Works(){
-        StringReader sr = new StringReader("Spain");
-        Scanner scan = new Scanner(sr);
-        assertEquals("Spain", crm.countryInput(scan));
-    }
+
 
     //check if we can add shaun ideas
     @Test
@@ -157,129 +106,7 @@ class CRMTest {
         assertEquals(1, crm.getOpportunityMap().size());
     }
 
-    @Test
-    public void IndustrySelection_PRODUCE_works(){
-        Industry i = Industry.PRODUCE;
-        StringReader sr = new StringReader("PRODUCE");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.industrySelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("PRODUCE selected!"));
-    }
 
-    @Test
-    public void IndustrySelection_ECOMMERCE_works(){
-        Industry i = Industry.ECOMMERCE;
-        StringReader sr = new StringReader("ECOMMERCE");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.industrySelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("ECOMMERCE selected!"));
-    }
-
-    @Test
-    public void IndustrySelection_MANUFACTURING_works(){
-        Industry i = Industry.MANUFACTURING;
-        StringReader sr = new StringReader("MANUFACTURING");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.industrySelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("MANUFACTURING selected!"));
-    }
-
-    @Test
-    public void IndustrySelection_MEDICAL_works(){
-        Industry i = Industry.MEDICAL;
-        StringReader sr = new StringReader("MEDICAL");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.industrySelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("MEDICAL selected!"));
-    }
-
-    @Test
-    public void IndustrySelection_OTHER_works(){
-        Industry i = Industry.OTHER;
-        StringReader sr = new StringReader("OTHER");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.industrySelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("OTHER selected!"));
-    }
-
-    @Test
-    public void printEnum_Insdustry_Works(){
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        crm.printEnum("Industry");
-        List<String> s = consoleCaptor.getStandardOutput();
-        assertThat(s.contains("- PRODUCE\n- ECOMMERCE\n- MANUFACTURING\n- MEDICAL\n- OTHER\n"));
-        consoleCaptor.close();
-    }
-
-    @Test
-    public void printEnun_Product_Works(){
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        crm.printEnum("Product");
-        List<String> s = consoleCaptor.getStandardOutput();
-        assertThat(s.contains("- HYBRID\n- HYBRID\n- HYBRID\n"));
-        consoleCaptor.close();
-    }
-
-    @Test
-    public void printEnun_Status_Works(){
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        crm.printEnum("Status");
-        List<String> s = consoleCaptor.getStandardOutput();
-        assertThat(s.contains("- OPEN\n- CLOSED_LOST\n- CLOSED_WIN\n"));
-        consoleCaptor.close();
-    }
-
-
-    @Test
-    public void ProductSelection_HYBRID_works(){
-        Product i = Product.HYBRID;
-        StringReader sr = new StringReader("HYBRID");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.productSelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("HYBRID selected!"));
-    }
-
-    @Test
-    public void ProductSelection_FLATBED_works(){
-        Product i = Product.FLATBED;
-        StringReader sr = new StringReader("FLATBED");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.productSelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("FLATBED selected!"));
-    }
-
-    @Test
-    public void ProductSelection_BOX_works(){
-        Product i = Product.BOX;
-        StringReader sr = new StringReader("BOX");
-        Scanner scan = new Scanner(sr);
-        ConsoleCaptor consoleCaptor = new ConsoleCaptor();
-        assertEquals(i, crm.productSelection(scan));;
-        List<String> s = consoleCaptor.getStandardOutput();
-        consoleCaptor.close();
-        assertThat(s.contains("BOX selected!"));
-    }
 
 
 
