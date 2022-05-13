@@ -204,9 +204,7 @@ public class Utilities {
 
     public void printStats(List<Object[]> lists){
         for (Object[] o : lists){
-            for (Object j : o){
-                System.out.print(j + "  ");
-            }
+            System.out.println(o[0] + "------" + o[1]);
             System.out.println();
         }
     }

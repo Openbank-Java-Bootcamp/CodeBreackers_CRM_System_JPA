@@ -62,72 +62,132 @@ public class OpportunityService {
     }
 
     public void opportunitiesBySalesRep(Scanner scanner){
+        System.out.println("SALESREP------OPPORTUNITIES");
        List<Object[]> stats =  opportunityRepository.findBySalesRepo();
-       u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
     public void opportunitiesBySalesRepAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("SALESREP------OPPORTUNITIES [Status: "+ s + "]");
         List<Object[]> stats =  opportunityRepository.findBySalesRepoAndStatus(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
     public void opportunitiesByProduct(Scanner scanner){
+        System.out.println("PRODUCT------OPPORTUNITIES");
         List<Object[]> stats =  opportunityRepository.findByProduct();
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
     //ESTE SERIA PRODUCT AND STATUS
     public void opportunitiesByProductAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("PRODUCT------OPPORTUNITIES [Status " + s + "]");
         List<Object[]> stats =  opportunityRepository.findByProductAndState(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
 
     public void opportunitiesByCountry(Scanner scanner){
+        System.out.println("COUNTRY------OPPORTUNITIES");
         List<Object[]> stats =  opportunityRepository.findByCountry();
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
     public void opportunitiesByCountryAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("COUNTRY------OPPORTUNITIES [Status: "+ s+ "]");
         List<Object[]> stats =  opportunityRepository.findByCountryAndStatus(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunitiesByCity(Scanner scanner){
+        System.out.println("CITY------OPPORTUNITIES");
         List<Object[]> stats =  opportunityRepository.findByCity();
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunitiesByCityAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("CITY------OPPORTUNITIES [STATUS: "+s+"]");
         List<Object[]> stats =  opportunityRepository.findByCityAndStatus(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunitiesByIndustry(Scanner scanner){
+        System.out.println("INDUSTRY------OPPORTUNITIES");
         List<Object[]> stats =  opportunityRepository.findByIndustry();
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
 
     public void opportunitiesByIndustryAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("INDUSTRY------OPPORTUNITIES [STATUS: "+s+"]");
         List<Object[]> stats =  opportunityRepository.findByIndustryAndStatus(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunitiesByQuantityAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
+        System.out.println("QUANTITY------OPPORTUNITIES [STATUS: "+s+"]");
         List<Object[]> stats =  opportunityRepository.findByQuantityAndStatus(s.toString());
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunitiesByQuantity(Scanner scanner){
+        System.out.println("QUANTITY------OPPORTUNITIES ");
         List<Object[]> stats =  opportunityRepository.findByQuantity();
-        u.printStats(stats);
+        if (stats.size() != 0) {
+            u.printStats(stats);
+        }else{
+            System.out.println("There is no data to make the stat from.");
+        }
     }
     public void opportunityList(){
         List<Opportunity> opportunities = opportunityRepository.findAll();
