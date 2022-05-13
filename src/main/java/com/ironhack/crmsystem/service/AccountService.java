@@ -31,7 +31,7 @@ public class AccountService {
         }
 
         System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        //Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
         System.out.println();
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();

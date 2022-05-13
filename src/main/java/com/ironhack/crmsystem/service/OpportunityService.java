@@ -11,6 +11,7 @@ import com.ironhack.crmsystem.repository.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,12 +56,6 @@ public class OpportunityService {
 
     }
 
-    public void opportunitiesList(){
-        List<Opportunity> opportunities = opportunityRepository.findAll();
-        u.printOpportunities(opportunities);
-
-    }
-
     public void opportunitiesBySalesRep(Scanner scanner){
         System.out.println("SALESREP------OPPORTUNITIES");
        List<Object[]> stats =  opportunityRepository.findBySalesRepo();
@@ -93,7 +88,6 @@ public class OpportunityService {
         }
     }
 
-    //ESTE SERIA PRODUCT AND STATUS
     public void opportunitiesByProductAndStatus(Scanner scanner){
         System.out.println("Introduce the Opportunity State you want to filter by: ");
         Status s = u.StateSelection(scanner);
@@ -189,6 +183,7 @@ public class OpportunityService {
             System.out.println("There is no data to make the stat from.");
         }
     }
+
     public void opportunityList(){
         List<Opportunity> opportunities = opportunityRepository.findAll();
         u.printOpportunities(opportunities);
@@ -237,6 +232,7 @@ public class OpportunityService {
         }
     }
 
+    //maria
     public void maxQuantity(){
         int max=opportunityRepository.getMaxQuantity();
         System.out.println("Max Quantity is: " + max);
@@ -286,19 +282,13 @@ public class OpportunityService {
         System.out.println();
     }
 
-    public void maxOpportunityByAccount(){
-        /*List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
-        Object[] maxOpp = opportunities.get(0);
+    public void maxOpportunityByAccount() {
 
-        String nameAcc = maxOpp[0].toString();
-        String max = maxOpp[1].toString();
-
-         */
-        if(opportunityRepository.getCount() == 0){
+        if (opportunityRepository.getCount() == 0) {
             System.out.println("The company has no Opportunities");
         } else {
 
-            Object maxOp = opportunityRepository.findMaxOpportunityByAccount();
+            Object maxOp = maxOpp();
             String nameAcc = ((Object[]) maxOp)[0].toString();
             String max = ((Object[]) maxOp)[1].toString();
 
@@ -310,22 +300,21 @@ public class OpportunityService {
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();
     }
-    public void minOpportunityByAccount(){
 
-        /*List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
-        int totalAcc = opportunities.size();
-        Object[] mixOpp = opportunities.get(totalAcc-1);
+    public Object[] maxOpp() {
+        List<Object[]> oppList = opportunityRepository.findOpportunitiesByAccount();
+        return oppList.get(0);
+    }
 
-        String nameAcc = mixOpp[0].toString();
-        String min = mixOpp[1].toString();*/
+    public void minOpportunityByAccount() {
 
-        if(opportunityRepository.getCount() == 0){
+        if (opportunityRepository.getCount() == 0) {
             System.out.println("The company has no Opportunities");
         } else {
 
-            Object minOp = opportunityRepository.findMinOpportunityByAccount();
-            String nameAcc = ((Object[]) minOp)[0].toString();
-            String min = ((Object[]) minOp)[1].toString();
+            Object[] minOp = minOpp();
+            String nameAcc = minOp[0].toString();
+            String min = minOp[1].toString();
 
             System.out.println("The Account with fewer Opportunities is " + nameAcc + " with a number of " + min);
         }
@@ -335,58 +324,72 @@ public class OpportunityService {
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();
     }
-    public void meanOpportunityByAccount(){
+
+    public Object[] minOpp() {
+        List<Object[]> oppList = opportunityRepository.findOpportunitiesByAccount();
+        return oppList.get(oppList.size() - 1);
+    }
+
+    public void meanOpportunityByAccount() {
         List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
-        int totalAcc = opportunities.size();
-        if(totalAcc == 0){
+        if (opportunities.size() == 0) {
             System.out.println("The company has no Opportunities");
         } else {
-            int totalOpp = 0;
-            for (Object[] opp : opportunities) {
-                totalOpp += Integer.parseInt(opp[1].toString());
-            }
-            double mean = totalOpp / totalAcc;
+            DecimalFormat df = new DecimalFormat("#.00");
+            double mean = meanOpp();
 
-            //Object avg = opportunityRepository.findMinOpportunityByAccount();
-            //String mean = ((Object[])avg)[1].toString();
-
-            System.out.println("The mean of Opportunities by Account is " + mean);
+            System.out.println("The mean of Opportunities by Account is " + df.format(mean));
         }
         System.out.println();
         Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
         System.out.println();
         System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
         System.out.println();
-
     }
 
-    public void medianOpportunityByAccount(){
+    public double meanOpp() {
+        List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
+        double totalOpp = 0;
+        int totalAcc = opportunities.size();
+
+        for (Object[] opp : opportunities) {
+            totalOpp += Integer.parseInt(opp[1].toString());
+        }
+        return totalOpp / totalAcc;
+    }
+
+    public void medianOpportunityByAccount() {
+        List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
+        if (opportunities.size() == 0) {
+            System.out.println("The company has no Opportunities");
+        } else {
+            DecimalFormat df = new DecimalFormat("#.00");
+            double median = medianOpp();
+            System.out.println("The mean of Opportunities by Account is " + df.format(median));
+        }
+        System.out.println();
+        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
+        System.out.println();
+        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
+        System.out.println();
+    }
+
+    public double medianOpp(){
         List<Object[]> opportunities = opportunityRepository.findOpportunitiesByAccount();
         double median = 0;
-
-        if(opportunities.size() == 0){
-            System.out.println("The company has no Opportunities");
+        if (opportunities.size() % 2 != 0){
+            Object[] medianOpp = opportunities.get(opportunities.size()/2);
+            median = Double.parseDouble(medianOpp[1].toString());
         } else {
-            if (opportunities.size() % 2 != 0){
-                Object[] medianOpp = opportunities.get(opportunities.size()/2);
-                median = Double.parseDouble(medianOpp[1].toString());
-            } else {
-                Object[] medianOpp1 = opportunities.get(opportunities.size()/2);
-                double med1 = Double.parseDouble(medianOpp1[1].toString());
-                Object[] medianOpp2 = opportunities.get(opportunities.size()/2);
-                double med2 = Double.parseDouble(medianOpp1[1].toString());
-                median = (med1 + med2) / 2;
-            }
-
+            Object[] medianOpp1 = opportunities.get(opportunities.size()/2);
+            double med1 = Double.parseDouble(medianOpp1[1].toString());
+            Object[] medianOpp2 = opportunities.get(opportunities.size()/2);
+            double med2 = Double.parseDouble(medianOpp1[1].toString());
+            median = (med1 + med2) / 2;
         }
 
-        System.out.println("The mean of Opportunities by Account is " + median);
-
-        System.out.println();
-        Menu.enterToContinue(Colors.YELLOW_BOLD_BRIGHT + "Press ENTER to continue...");
-        System.out.println();
-        System.out.println(Colors.RESET + "---------------------------------------------------------------------------------");
-        System.out.println();
+        return median;
     }
+
 
 }

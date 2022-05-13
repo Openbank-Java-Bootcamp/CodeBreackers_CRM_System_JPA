@@ -83,4 +83,11 @@ public class Account {
         return name;
     }
 
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
+    }
+
+    public void setOpportunityList(List<Opportunity> opportunityList) {
+        this.opportunityList = opportunityList;
+    }
 }
