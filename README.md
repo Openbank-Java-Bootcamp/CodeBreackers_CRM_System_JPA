@@ -54,6 +54,8 @@ Pressing the indicated command also the program redirects you to the secondary m
 
 These secondary menus allow reports like the following:
 
+![report Employee](https://user-images.githubusercontent.com/100872227/168321651-bc52e7e7-48dd-4d02-82f3-7cca6e4a525c.jpg)
+
 “Exit” the program is closed.
 
 ![Exit](https://user-images.githubusercontent.com/100872227/167144975-2da7a9e1-6c9d-43e8-9369-0fee7cbd911a.jpg)
